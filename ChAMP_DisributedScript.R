@@ -23,9 +23,9 @@ count_files <- function(path, file_type, file_format){
   return(length(files))
 }
 
-check_if_necessary <- function(batch_size, samples_number){
-  if(batch_size > samples_number){
-    cat("Batch size", batch_size, ">", samples_number, "samples number", "\n")
+check_if_necessary <- function(chunk_size, samples_number){
+  if(chunk_size > samples_number){
+    cat("Chunk size", chunk_size, ">", samples_number, "samples number", "\n")
     stop("Stopped.")
   }
 }
@@ -137,12 +137,11 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
       # # Norm path
       Norm_path <- create_dir(output, "Norm", i)
 
-      cat("Run", i, "/", ceiling(n_rows / batch_size), "Each up to: ", batch_size ,"samples.", "\n")
+      cat("Run", i, "/", ceiling(n_rows / chunk_size), "Each up to: ", chunk_size ,"samples.", "\n")
       
       idx_start <- chunk_size * (i - 1) + 1
       idx_end <- (chunk_size * i)
       if (idx_end > n_rows){idx_end <- n_rows}
-  
       temp_samples <- randomized_samples[idx_start:idx_end]
       temp_sample_sheet <- sample_sheet[temp_samples, ]
       
@@ -164,3 +163,10 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   path = glue(output, "myNorm", ".csv")
   write.csv(myNorm, path, sep=",")
 }
+
+
+run_distributed_champ(path_ss = "../data/raw/SampleSeet_USA_Spain_PUM_HB.csv", output = "../data/interim/AllConcated_Spain_USA_PUM_processedTogether/", 
+                      array_type = "EPIC", 
+                      cores = 1, 
+                      chunk_size = 50, 
+                      path_idats = "../data/raw/ALL/")
