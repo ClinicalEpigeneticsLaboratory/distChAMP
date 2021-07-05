@@ -37,7 +37,7 @@ when function is correctly loaded type:
 * **path_ss** -> path to sample sheet file [can not be in the same directory as *.idats].
 * **output** -> path to output directory.
 * **path_idats** -> path to directory containing *idats.
-* **batch_size** -> number of samples per batch.
+* **batch_size** -> number of samples per chunk.
 
 ##### ChAMP args:
 
