@@ -32,20 +32,16 @@ when function is correctly loaded type:
                           batch_size = number_of_samples_per_chunk)
 
 
-**path_ss** -> path to sample sheet file [can not be in the same directory as idats].
 
-**output** -> path to output directory.
-
-**path_idats** -> path to directory containing *idats.
-
-**batch_size** -> number of samples per batch.
+* **path_ss** -> path to sample sheet file [can not be in the same directory as idats].
+* **output** -> path to output directory.
+* **path_idats** -> path to directory containing *idats.
+* **batch_size** -> number of samples per batch.
 
 ##### ChAMP args
-**array_type** -> EPIC / 450K.
-
-**norm_type** -> BMIQ / SWAN / PBC / FunctionalNormliazation
-
-**cores** -> number of cores to use [accelerate only normalization step]
+* **array_type** -> EPIC / 450K.
+* **norm_type** -> BMIQ / SWAN / PBC / FunctionalNormliazation
+* **cores** -> number of cores to use [accelerate only normalization step]
 
 
 Finally *output* directory contains myNorm file, ad QC/Norm files for each chunk. 
