@@ -37,7 +37,7 @@ when function is correctly loaded type:
 **path_idats** -> path to directory containing *idats.
 **batch_size** -> number of samples per batch.
 
-# ChAMP args
+##### ChAMP args
 **array_type** -> EPIC / 450K.
 **norm_type** -> BMIQ / SWAN / PBC / FunctionalNormliazation
 **cores** -> number of cores to use [accelerate only normalization step]
