@@ -163,10 +163,3 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   path = glue(output, "myNorm", ".csv")
   write.csv(myNorm, path, sep=",")
 }
-
-
-run_distributed_champ(path_ss = "../data/raw/SampleSeet_USA_Spain_PUM_HB.csv", output = "../data/interim/AllConcated_Spain_USA_PUM_processedTogether/", 
-                      array_type = "EPIC", 
-                      cores = 1, 
-                      chunk_size = 50, 
-                      path_idats = "../data/raw/ALL/")
