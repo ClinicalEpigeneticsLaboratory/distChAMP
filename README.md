@@ -5,7 +5,7 @@ This is a simple tool to create myNorm file from a large amount of data [*.idats
 
 ### How does it work
 
-Sample sheet containing n-samples is shuffled and then split into k-batches containing ~ n/k elements. Then each batch is processed into temporary myNorm file using ChAMP pipeline. Next all temporary myNorms are merged into final object.
+Sample sheet containing n-samples is shuffled and then split into k-chunks containing ~ n/k elements. Then each chunk is processed into temporary myNorm file using ChAMP pipeline. Next all temporary myNorms are merged into final object.
 
 
 ### How to run
