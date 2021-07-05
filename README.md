@@ -1,10 +1,10 @@
 # Distributed ChAMP pipeline - distChAMP
 
-It`s simple tool to create myNorm file from *.idats using ChAMP package [1], but instead of process all files simultaneously it use distributed manner. This method is less computationally expensive and allows to process large amount of data in one run, however may consume much more time.
+This is a simple tool to create myNorm file from a large amount of data [*.idats files] using ChAMP package [1]. Instead of processing all files simultaneously the tool uses distributed manner. This strategy is less computationally consumable, but the process requires more time.
 
 ### How does it work
 
-Sample sheet containing n-samples is shuffled and then split into k-batches containing ~ n/k elements. Then each batch is processed into temporary myNorm file using ChAMP pipeline. Next all temporary myNorms are merge into final object.
+Sample sheet containing n-samples is shuffled and then split into k-batches containing ~ n/k elements. Then each batch is processed into temporary myNorm file using ChAMP pipeline. Next all temporary myNorms are merged into final object.
 
 
 ### How to run
@@ -33,7 +33,7 @@ when function is correctly loaded type:
 
 
 
-* **path_ss** -> path to sample sheet file [can not be in the same directory as idats].
+* **path_ss** -> path to sample sheet file [can not be in the same directory as *.idats].
 * **output** -> path to output directory.
 * **path_idats** -> path to directory containing *idats.
 * **batch_size** -> number of samples per batch.
