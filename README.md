@@ -9,7 +9,7 @@ Sample sheet containing n-samples is shuffled and then split into k-batches cont
 
 ### How to run
 
-To run **bold run_distributed_champ** function you need to install ChAMP package:
+To run **run_distributed_champ** function you need to install ChAMP package:
 
     if (!requireNamespace("BiocManager", quietly = TRUE))
         install.packages("BiocManager")
@@ -30,6 +30,20 @@ when function is correctly loaded type:
                           output = path_to_output_directory,
                           path_idats = path_to_idats_directory,
                           batch_size = number_of_samples_per_chunk)
+
+
+**path_ss** -> path to sample sheet file [can not be in the same directory as idats].
+**output** -> path to output directory.
+**path_idats** -> path to directory containing *idats.
+**batch_size** -> number of samples per batch.
+
+# ChAMP args
+**array_type** -> EPIC / 450K.
+**norm_type** -> BMIQ / SWAN / PBC / FunctionalNormliazation
+**cores** -> number of cores to use [accelerate only normalization step]
+
+
+Finally *output* directory contains myNorm file, ad QC/Norm files for each chunk. 
 
 
 1. Tian Y, Morris TJ, Webster AP, Yang Z, Beck S, Andrew F, Teschendorff AE (2017). “ChAMP: updated methylation analysis pipeline for Illumina BeadChips.” Bioinformatics, btx513. doi: 10.1093/bioinformatics/btx513.
