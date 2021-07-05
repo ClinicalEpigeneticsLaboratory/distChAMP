@@ -1,6 +1,6 @@
 # Distributed ChAMP pipeline - distChAMP
 
-This is a simple tool to create myNorm file from a large amount of data [*.idats files] using ChAMP package [1]. Instead of processing all files simultaneously the tool uses distributed manner. This strategy is less computationally consumable, but the process requires more time.
+This is a simple tool to create myNorm file from a large amount of data [*.idats files] using ChAMP package [1]. Instead of processing all files simultaneously the tool uses distributed manner. This strategy requires less RAM memory at the cost of computation time. Please note that final myNorm object still must fit into [RAM].
 
 ### How does it work
 
