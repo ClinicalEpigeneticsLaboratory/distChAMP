@@ -44,7 +44,7 @@ when function is correctly loaded type:
 * **cores** -> number of cores to use [accelerate only normalization step]
 
 
-Finally *output* directory contains myNorm file, ad QC/Norm files for each chunk. 
+Finally **output** directory contains myNorm file, ad QC/Norm directories for each chunk. 
 
 
 1. Tian Y, Morris TJ, Webster AP, Yang Z, Beck S, Andrew F, Teschendorff AE (2017). “ChAMP: updated methylation analysis pipeline for Illumina BeadChips.” Bioinformatics, btx513. doi: 10.1093/bioinformatics/btx513.
