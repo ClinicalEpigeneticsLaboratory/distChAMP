@@ -110,7 +110,7 @@ run_champ <- function(path_idats, QC_path, Norm_path, array_type, force, norm_ty
   return(myNorm)
 }
 
-run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPIC", force = TRUE, norm_type = "BMIQ", cores = 1, batch_size = 100){
+run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPIC", force = TRUE, norm_type = "BMIQ", cores = 1, chunk_size = 100){
   
   check_if_file_exists(path_idats)
   check_if_file_exists(path_ss)
@@ -124,12 +124,12 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   sample_sheet <- read.csv(path_ss, row.names = 1)
 
   n_rows <- length(row.names(sample_sheet))
-  check_if_necessary(batch_size, n_rows)
+  check_if_necessary(chunk_size, n_rows)
   
   randomized_samples <- shuffle(rownames(sample_sheet))
   mynorms <- list()
   
-  for (i in 1:ceiling(n_rows / batch_size)){
+  for (i in 1:ceiling(n_rows / chunk_size)){
 
       # Crete QC path
       QC_path <- create_dir(output, "QC", i)
@@ -139,8 +139,8 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
 
       cat("Run", i, "/", ceiling(n_rows / batch_size), "Each up to: ", batch_size ,"samples.", "\n")
       
-      idx_start <- batch_size * (i - 1) + 1
-      idx_end <- (batch_size * i)
+      idx_start <- chunk_size * (i - 1) + 1
+      idx_end <- (chunk_size * i)
       if (idx_end > n_rows){idx_end <- n_rows}
   
       temp_samples <- randomized_samples[idx_start:idx_end]
@@ -164,8 +164,3 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   path = glue(output, "myNorm", ".csv")
   write.csv(myNorm, path, sep=",")
 }
-
-
-# run_distributed_champ(path_ss = "../data/raw/SampleSeet_USA_Spain_PUM_HB_temp.csv", output = "../data/interim/TEST/",
-#                       path_idats = "../data/raw/ALL/", batch_size = 10, cores = 6)
-
