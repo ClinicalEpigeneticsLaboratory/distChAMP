@@ -52,19 +52,19 @@ overlap_cpgs <- function(list_of_mynorms_mynorms){
     idx <- idx + 1
   }
   common_cpgs <- Reduce(intersect, cpgs_per_mynorm)
-  
+  cat("Found: ", length(common_cpgs), "common across chunks.")
   return(common_cpgs)
 }
 
-concate_mynorms <- function(list_of_mynorms_mynorms, cpgs_common){
+concate_mynorms <- function(list_of_mynorms, cpgs_common){
   
   idx <- 1
-  for (mynorm in list_of_mynorms_mynorms){
-    list_of_mynorms_mynorms[[idx]] <- mynorm[cpgs_common, ]
+  for (mynorm in list_of_mynorms){
+    list_of_mynorms[[idx]] <- mynorm[cpgs_common, ]
     idx <- idx + 1
   }
   
-  myNorm <- do.call("cbind", list_of_mynorms_mynorms)
+  myNorm <- do.call("cbind", list_of_mynorms)
   return(myNorm)
 }
 
@@ -109,30 +109,30 @@ run_champ <- function(path_idats, QC_path, Norm_path, array_type, force, norm_ty
   return(myNorm)
 }
 
-
 load_chunks <- function(path, pattern){
   
   chunks <- list()
   files <- list.files(path, pattern)
-  
+
   idx <- 1
   for (file in files){
-    path = glue(path, file)
-    cat("Loading: ", path)
+    chunk_path = glue(path, file)
+    cat("Loading: ", chunk_path, "\n")
     
-    chunk <- data.table::fread(path, data.table = FALSE)
-    chunk <- data.frame(chunk, row.names = 1)
-    chunks[[idx]] <- chunk 
+    chunk_df <- data.table::fread(chunk_path, data.table = FALSE)
+    chunk_df <- data.frame(chunk_df, row.names = 1)
+    chunks[[idx]] <- chunk_df 
   }
+  return(chunks)
 }
 
 delete_temp_files <- function(path, pattern){
-  temp_files <- list.files(path, "temp_chunk.csv")
+  temp_files <- list.files(path, pattern)
+  
   for (file in temp_files){
-    path = glue(path, file)
-    cat("Deleting: ", path)
+    chunk_path = glue(path, file)
+    cat("Deleting: ", chunk_path, "\n")
     
-    unlink(path, recursive = FALSE, force = FALSE)
-    
+    unlink(chunk_path, recursive = FALSE, force = FALSE)
   }
 }

@@ -9,7 +9,7 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   if (n_csv_files > 1){stop("Remove Sample Sheet from idat directory")}
   
   count_files(path_idats, "IDATs", ".idat")
-  check_if_file_exists(output)
+  # check_if_file_exists(output)
   
   sample_sheet <- read.csv(path_ss, row.names = 1)
 
@@ -22,33 +22,34 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
 
       # Crete QC path
       QC_path <- create_dir(output, "QC", i)
-      
+
       # # Norm path
       Norm_path <- create_dir(output, "Norm", i)
 
       cat("Run", i, "/", ceiling(n_rows / chunk_size), "Each up to: ", chunk_size ,"samples.", "\n")
-      
+
       idx_start <- chunk_size * (i - 1) + 1
       idx_end <- (chunk_size * i)
       if (idx_end > n_rows){idx_end <- n_rows}
       temp_samples <- randomized_samples[idx_start:idx_end]
       temp_sample_sheet <- sample_sheet[temp_samples, ]
-      
+
       temp_sample_sheet["Sample_Name"] <- rownames(temp_sample_sheet)
       write.csv(temp_sample_sheet, glue(path_idats, "temp_sample_sheet.csv"), sep=",")
-  
+
       mynorm_temp <- run_champ(path_idats = path_idats, QC_path = QC_path, Norm_path = Norm_path, array_type = array_type, force = force, norm_type = norm_type, cores = cores)
       delete_temp_sample_sheet(path_idats)
-      
-      path = glue(output, i, "temp_chunk", ".csv")
+
+      path = glue(output, i, "_temp_chunk", ".csv")
       write.csv(mynorm_temp, path, sep=",")
       cat("Saved chunk no. ", i, "\n")
-      
+
   }
-  cat("Loading chunks ...")
-  mynorms <- load_chunks(output, "temp_chunk.csv")
-  
-  cat("Removing temporary files ...")
+
+  cat("Loading chunks ...", "\n")
+  mynorms <- load_chunks(output, "_temp_chunk.csv")
+
+  cat("Removing temporary files ...", "\n")
   delete_temp_files(output, "temp_chunk.csv")
   
   cat("Looking for CpGs common across batches ...", "\n")
@@ -57,6 +58,12 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   cat("Concating batches into myNorm ...", "\n")
   myNorm <- concate_mynorms(mynorms, common_cpg)
   
+  mynorm_path = glue(output, "myNorm.csv")
   cat("Saving myNorm ...", "\n")
-  write.csv(myNorm, glue(output, "myNorm.csv"), sep = ",")
+  
+  write.csv(myNorm, mynorm_path)
 }
+
+run_distributed_champ(path_ss = "../../Covid-Project/data/raw/SampleSeet_USA_Spain_PUM_HB.csv",
+                     path_idats = "../../Covid-Project/data/raw/ALL/", chunk_size = 10, cores = 1,
+                     output = "../../Covid-Project/data/TEST/")
