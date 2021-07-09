@@ -9,7 +9,7 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   if (n_csv_files > 1){stop("Remove Sample Sheet from idat directory")}
   
   count_files(path_idats, "IDATs", ".idat")
-  # check_if_file_exists(output)
+  check_if_file_exists(output)
   
   sample_sheet <- read.csv(path_ss, row.names = 1)
 
