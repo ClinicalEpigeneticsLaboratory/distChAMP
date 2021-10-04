@@ -1,7 +1,9 @@
+setwd('C:/Users/ksokolowska/Desktop/distChAMP')
+
 source("utils/utils.R")
 
 run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPIC", force = TRUE, norm_type = "BMIQ", cores = 1, chunk_size = 100){
-  
+
   check_if_file_exists(path_idats)
   check_if_file_exists(path_ss)
   n_csv_files <- count_files(path_idats, "SampleSheet", ".csv")
@@ -35,7 +37,7 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
       temp_sample_sheet <- sample_sheet[temp_samples, ]
 
       temp_sample_sheet["Sample_Name"] <- rownames(temp_sample_sheet)
-      write.csv(temp_sample_sheet, glue(path_idats, "temp_sample_sheet.csv"), sep=",")
+      write.csv(temp_sample_sheet, glue(path_idats, "/temp_sample_sheet.csv"), sep=",")
 
       mynorm_temp <- run_champ(path_idats = path_idats, QC_path = QC_path, Norm_path = Norm_path, array_type = array_type, force = force, norm_type = norm_type, cores = cores)
       delete_temp_sample_sheet(path_idats)
@@ -64,6 +66,3 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   write.csv(myNorm, mynorm_path)
 }
 
-run_distributed_champ(path_ss = "../../Covid-Project/data/raw/SampleSeet_USA_Spain_PUM_HB.csv",
-                     path_idats = "../../Covid-Project/data/raw/ALL/", chunk_size = 10, cores = 1,
-                     output = "../../Covid-Project/data/TEST/")
