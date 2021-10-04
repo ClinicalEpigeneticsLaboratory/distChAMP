@@ -38,7 +38,7 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
 
       temp_sample_sheet["Sample_Name"] <- rownames(temp_sample_sheet)
       write.csv(temp_sample_sheet, glue(path_idats, "/temp_sample_sheet.csv"), sep=",")
-      cat(path_idats)
+
       mynorm_temp <- run_champ(path_idats = path_idats, QC_path = QC_path, Norm_path = Norm_path, array_type = array_type, force = force, norm_type = norm_type, cores = cores)
       delete_temp_sample_sheet(path_idats)
 
@@ -66,11 +66,3 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   write.csv(myNorm, mynorm_path)
 }
 
-# run_distributed_champ(path_ss = "../../Covid-Project/data/raw/SampleSeet_USA_Spain_PUM_HB.csv",
-#                      path_idats = "../../Covid-Project/data/raw/ALL/", chunk_size = 10, cores = 1,
-#                      output = "../../Covid-Project/data/TEST/")
-
-# setwd("F:/IDATS_ALL/Healthy whole blood samples/EPIC/European/GSE153712_predominantly_northern-European_Caucasian_471_healthy_samples_EPIC (dowloaded healthy with Alzheimer and MCI)")
-# run_distributed_champ(path_ss = "sample_sheet/SampleSheet_Healthy_individuals.csv",
-#                       path_idats = "idats", chunk_size = 20, cores = 3,
-#                       output = "my_norm/")
