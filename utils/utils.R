@@ -122,6 +122,7 @@ load_chunks <- function(path, pattern){
     chunk_df <- data.table::fread(chunk_path, data.table = FALSE)
     chunk_df <- data.frame(chunk_df, row.names = 1)
     chunks[[idx]] <- chunk_df 
+    idx <- idx + 1
   }
   return(chunks)
 }
@@ -136,3 +137,4 @@ delete_temp_files <- function(path, pattern){
     unlink(chunk_path, recursive = FALSE, force = FALSE)
   }
 }
+
