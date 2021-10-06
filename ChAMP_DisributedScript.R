@@ -2,13 +2,8 @@ setwd('C:/Users/ksokolowska/Desktop/distChAMP')
 
 source("utils/utils.R")
 
-<<<<<<< HEAD
 run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPIC", force = TRUE, norm_type = "BMIQ", cores = 1, chunk_size = 50){
   path_idats = correct_idats_path(path_idats)
-=======
-run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPIC", force = TRUE, norm_type = "BMIQ", cores = 1, chunk_size = 100){
-
->>>>>>> 418d07afa6618499d95662166c8472bb81d3628e
   check_if_file_exists(path_idats)
   check_if_file_exists(path_ss)
   n_csv_files <- count_files(path_idats, "SampleSheet", ".csv")
@@ -67,7 +62,6 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   
   write.csv(myNorm, mynorm_path)
 
-<<<<<<< HEAD
   cat("Removing temporary files ...", "\n")
   delete_temp_files(output, "temp_chunk.csv")
   
@@ -76,9 +70,7 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   }
 
 # Example run
-run_distributed_champ(path_ss = "../covid-project/data/raw/SampleSheetALL.csv",
+run_distributed_champ(path_ss = "../covid-project/data/raw/SampleSheetALLTEST.csv",
                       path_idats = "../covid-project/data/raw/CONCATED_ALL/",
                       output = "../covid-project/data/raw/TEST/",
-                      array_type = "EPIC", chunk_size = 50)
-=======
->>>>>>> 418d07afa6618499d95662166c8472bb81d3628e
+                      array_type = "EPIC", chunk_size = 5)
