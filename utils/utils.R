@@ -2,6 +2,15 @@ library(permute)
 library(ChAMP)
 library(glue)
 
+correct_idats_path <- function(path_idats){
+  if (endsWith(path_idats, "/")){
+    substr(path_idats, 1, nchar(path_idats) - 1)
+  }
+  else{
+    return(path_idats)
+  }
+}
+
 delete_temp_sample_sheet <- function(path_idats){
   temp_file = glue(path_idats, "temp_sample_sheet.csv")
   if (file.exists(temp_file)) {
@@ -41,7 +50,6 @@ create_dir <- function(path, name, extension){
   return(path)
 }
 
-
 overlap_cpgs <- function(list_of_mynorms_mynorms){
   
   cpgs_per_mynorm <- list()
@@ -52,7 +60,7 @@ overlap_cpgs <- function(list_of_mynorms_mynorms){
     idx <- idx + 1
   }
   common_cpgs <- Reduce(intersect, cpgs_per_mynorm)
-  cat("Found: ", length(common_cpgs), "common across chunks.")
+  cat("Found: ", length(common_cpgs), "common across chunks.", "\n")
   return(common_cpgs)
 }
 
@@ -122,6 +130,7 @@ load_chunks <- function(path, pattern){
     chunk_df <- data.table::fread(chunk_path, data.table = FALSE)
     chunk_df <- data.frame(chunk_df, row.names = 1)
     chunks[[idx]] <- chunk_df 
+    idx <- idx + 1
   }
   return(chunks)
 }
@@ -132,7 +141,7 @@ delete_temp_files <- function(path, pattern){
   for (file in temp_files){
     chunk_path = glue(path, file)
     cat("Deleting: ", chunk_path, "\n")
-    
     unlink(chunk_path, recursive = FALSE, force = FALSE)
   }
 }
+
