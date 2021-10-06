@@ -65,10 +65,4 @@ run_distributed_champ <- function(path_ss, path_idats, output, array_type = "EPI
   
   cat("DONE!")
   
-  }
-
-# Example run
-run_distributed_champ(path_ss = "../covid-project/data/raw/SampleSheetALLTEST.csv",
-                      path_idats = "../covid-project/data/raw/CONCATED_ALL/",
-                      output = "../covid-project/data/raw/TEST/",
-                      array_type = "EPIC", chunk_size = 4)
+}
